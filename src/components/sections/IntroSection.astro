@@ -1,0 +1,97 @@
+---
+import SectionLabel from "../ui/SectionLabel.astro";
+import Callout from "../ui/Callout.astro";
+import { getCollection } from 'astro:content';
+
+const staticStats = await getCollection('stats');
+const discordStats = await getCollection('discordStats');
+const allStats = [...staticStats, ...discordStats].sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const stats = allStats.map((stat) => ({
+  label: stat.data.label,
+  value: stat.data.value,
+}));
+---
+
+<section id="overview" class="relative overflow-hidden py-20 md:py-24 scroll-mt-24">
+  <div
+    class="pointer-events-none absolute inset-0 opacity-30 [background:radial-gradient(circle_at_30%_20%,rgba(0,71,255,0.15)_0%,transparent_50%)]"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative mx-auto grid w-full max-w-[1600px] grid-cols-12 gap-8 px-6 md:px-8 lg:gap-12">
+    <div class="col-span-12 space-y-8 lg:col-span-8">
+      <SectionLabel number="1.0" title="Overview" />
+
+      <div class="space-y-6">
+        <p class="text-lg leading-[1.7]">
+          The Agent Fan Club is a student organization at the University of Illinois Urbana-Champaign that promotes learning, research, and innovation in agentic technologies.
+        </p>
+
+        <p class="text-base leading-[1.6] text-stone-950/80">
+          Our mission focuses on three core goals: <strong class="font-semibold text-blue-700">(1)</strong> 
+          giving people hands-on experience with real AI tools so they can learn by doing, 
+          <strong class="font-semibold text-blue-700">(2)</strong> exploring and creating new ways to 
+          interact with these technologies, and <strong class="font-semibold text-blue-700">(3)</strong> 
+          sharing knowledge across the campus community about the growing importance of AI tools and agent-based systems.
+        </p>
+
+        <Callout type="info">
+          This organization is open to all UIUC students regardless of technical background. No prior AI experience
+          required for participation.
+        </Callout>
+      </div>
+
+      <div class="mt-16 border-l-[3px] border-blue-700 pl-8">
+        <div class="relative mb-8">
+          <span class="mb-2 block font-['JetBrains_Mono'] text-xs font-bold tracking-[0.1em] text-blue-700">1.1</span>
+          <h3 class="text-2xl font-semibold tracking-wide">Regular Operations</h3>
+        </div>
+
+        <p class="text-base leading-relaxed">
+          The Agent Fan Club meets weekly on Wednesday evenings from 8:00-9:00 PM in the Siebel Center for Computer
+          Science, ACM Middle Room (Room #1104). 
+        </p>
+      </div>
+    </div>
+
+    <aside class="col-span-12 space-y-6 lg:col-span-4">
+      <div
+        class="group border-2 border-stone-950 bg-white p-8 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all duration-300 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]"
+      >
+        <p class="mb-6 border-b-2 border-stone-950/20 pb-4 font-['JetBrains_Mono'] text-[11px] font-bold tracking-[0.15em] text-stone-400">
+          Quick Reference
+        </p>
+
+        <div class="space-y-6">
+          {
+            stats.map((stat) => (
+              <div class="group/stat">
+                <p class="mb-2 font-['JetBrains_Mono'] text-[11px] font-semibold tracking-[0.1em] text-stone-400">
+                  {stat.label}
+                </p>
+                <p class="text-xl font-semibold transition-all duration-200 group-hover:text-blue-400 group-hover:translate-x-1">
+                  {stat.value}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="mt-8 border-t-2 border-stone-950/20 pt-8">
+          <p class="mb-4 font-['JetBrains_Mono'] text-[11px] font-bold tracking-[0.15em] text-stone-400">Affiliations</p>
+          <div class="space-y-2 text-sm">
+            <a href="#" class="flex cursor-pointer items-center gap-2 transition-colors duration-200 hover:text-blue-400">
+              <span class="text-blue-400">→</span> University of Illinois Urbana-Champaign
+            </a>
+            <a href="#" class="flex cursor-pointer items-center gap-2 transition-colors duration-200 hover:text-blue-400">
+              <span class="text-blue-400">→</span> ACM @ UIUC
+            </a>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>

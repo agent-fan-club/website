@@ -1,0 +1,20 @@
+---
+interface Props {
+  number: string;
+  title: string;
+}
+
+const { number, title } = Astro.props;
+---
+
+<div class="group mb-12 flex items-baseline gap-4">
+  <span
+    class="font-['JetBrains_Mono'] text-xs font-bold tracking-[0.1em] text-blue-700 transition-all duration-300 group-hover:tracking-[0.2em]"
+  >
+    {number}
+  </span>
+  <h2 class="text-3xl font-bold tracking-tight transition-transform duration-300 group-hover:translate-x-1 md:text-5xl">
+    {title}
+  </h2>
+  <div class="ml-6 h-px flex-1 self-center bg-stone-950/20"></div>
+</div>
